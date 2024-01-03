@@ -1,0 +1,134 @@
+﻿
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">CarBooking List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="CarBooking" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create New CarBooking
+            </a>
+        </div>
+    </div>
+    <br />
+
+
+
+    <table id="tbldb" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    FirstName
+                </th>
+                <th>
+                    LastName
+                </th>
+                <th>
+                    BookingStartDate
+                </th>
+                <th>
+                    BookingEndDate
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    ContactNo
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Car
+                </th>
+                 <th>
+                    Amount
+                </th>
+                 <th>
+                    PaymentAmount
+                </th>
+                <th>
+                    Note
+                </th>
+                <th>
+                    BookingStatus
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td width="50%">
+                        @obj.Id
+                    </td>
+                    <td width="30%">
+                        @obj.FirstName
+                    </td>
+                    <td width="20%">
+                        @obj.LastName
+                    </td>
+                    <td width="20%">
+                        @obj.BookingStartDate
+                    </td>
+                    <td width="20%">
+                        @obj.BookingEndDate
+                    </td>
+                    <td width="20%">
+                        @obj.Email
+                    </td>
+                    <td width="20%">
+                        @obj.ContactNo
+                    </td>
+                    <td width="20%">
+                        @obj.Address
+                    </td>
+                    <td width="20%">
+                        @obj.Car.Name
+                    </td>
+                     <td width="20%">
+                        @obj.Amount
+                    </td>
+                     <td width="20%">
+                        @obj.PaymentAmount
+                    </td>
+                    <td width="20%">
+                        @obj.Note
+                    </td>
+                    <td>
+                        @{
+                            var bookingStatsText = "";
+                        }
+                        @if (obj.BookingStatus == 1)
+                        {
+                            bookingStatsText = "Pending";
+                        }
+                        else if (obj.BookingStatus == 2)
+                        {
+                            bookingStatsText = "Approved";
+                        }
+                        else if (obj.BookingStatus == 3)
+                        {
+                            bookingStatsText = "Rejected";
+                        }
+                        @bookingStatsText
+                    </td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="CarBooking" asp-action="Create" asp-route-id="@obj.Id"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                            @*<a asp-controller="CarBooking" asp-action="Delete" asp-route-id="@obj.Id"
+                                class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>*@
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+

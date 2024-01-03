@@ -1,0 +1,145 @@
+﻿@model CarBooking
+
+<form method="post" asp-action="Create">
+	<div class="border p-3 mt-4">
+		<div class="row pb-3">
+			<h2 class="text-primary">@(Model.Id!=0?"Update" : "Create") CarBooking</h2>
+			<hr />
+		</div>
+
+		@*<div asp-validation-summary="All"></div>*@
+		<script>  
+       function comparedates() {  
+		   debugger;
+		   console.log("TestGD");
+           //define two variables and fetch the input from HTML form  
+		   var bookingStartDate = document.getElementById("BookingStartDate").value;  
+		   var bookingEndDate = document.getElementById("BookingEndDate").value;  
+
+		   if(bookingStartDate == null || bookingStartDate == ""
+		   || bookingEndDate == null || bookingEndDate == "")
+		   {
+			   return false;
+		   }
+        //define two date object variables to store the date values  
+         var date1 = new Date(bookingStartDate);  
+         var date2 = new Date(bookingEndDate);  
+		 if(date1 == undefined || date2 == undefined || date2 < date1) return false;
+		 var amount = document.getElementById("Amount").value;  
+
+        //calculate time difference  
+         var dateDifference = date2.getDate() - date1.getDate() ;
+  
+         //calculate days difference by dividing total milliseconds in a day  
+		 var paymentAmount = dateDifference * parseFloat(amount);  
+		 //var paymentAmount =dayDifference * amount;
+          document.getElementById("LblPaymentAmount").innerHTML = paymentAmount;
+		  return true;
+        }  
+      </script>   
+		<div class="mb-3" >
+			<input type="hidden" asp-for="Id"/>
+			@*<label asp-for="Id"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>*@
+		</div>
+		<div class="mb-3">
+			<label asp-for="FirstName"></label>
+			<input asp-for="FirstName" class="form-control" />
+			<span asp-validation-for="FirstName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="LastName"></label>
+			<input asp-for="LastName" class="form-control" />
+			<span asp-validation-for="LastName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="BookingStartDate"></label>
+			<input  asp-for="BookingStartDate" class="form-control" 
+			onchange="return comparedates()"/>
+			<span asp-validation-for="BookingStartDate" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="BookingEndDate"></label>
+			<input asp-for="BookingEndDate" class="form-control" 
+			onchange="return comparedates()"/>
+			<span asp-validation-for="BookingEndDate" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Email"></label>
+			<input asp-for="Email" class="form-control" />
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="ContactNo"></label>
+			<input asp-for="ContactNo" class="form-control" />
+			<span asp-validation-for="ContactNo" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Address"></label>
+			<input asp-for="Address" class="form-control" />
+			<span asp-validation-for=" Address" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			@*<input  asp-for="CarId"/>*@
+			<label  asp-for="CarId"></label>
+			<select asp-for="CarId" asp-items="@ViewBag.CarList" class="form-select">
+				<option disabled selected>--Select --</option>
+			</select>
+			<span asp-validation-for="CarId" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Amount"></label>
+			<input asp-for="Amount" class="form-control" />
+			<span asp-validation-for="Amount" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="PaymentAmount" id="LblPaymentAmount"></label>
+			<input asp-for="PaymentAmount" class="form-control" />
+			<span asp-validation-for="PaymentAmount" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Note"></label>
+			<textarea asp-for="Note" rows="3" class="form-control"></textarea>
+			<span asp-validation-for="Note" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			@if (Model.Id != 0)
+            {	
+
+                    <label  class="control-label"> Select </label>
+                    <select name="BookingStatus" asp-for="BookingStatus" class="form-control" asp-items="@ViewBag.BookingStatus">
+                        <option disabled selected>--Select--</option>
+                    </select>			
+            }
+            else
+            {
+                    <input type="hidden" asp-for="BookingStatus" />
+            }
+
+            @*<label asp-for=" BookingStatus"></label>
+                <input asp-for=" BookingStatus" class="form-control" />
+                <span asp-validation-for=" BookingStatus" class="text-danger"></span>*@
+        </div>
+        <div class="col-12">
+            @if (Model.Id != 0)
+            {
+                    <button type="submit" class="btn btn-primary" style="width:150px" >Update</button>
+            }
+            else
+            {	
+                    <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+            }
+
+        <a asp-area="Admin" asp-controller="CarBooking" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>
+@section Scripts{
+	@{
+    
+		<partial name="_ValidationScriptsPartial" />
+
+	}
+}

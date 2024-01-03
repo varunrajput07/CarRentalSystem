@@ -1,0 +1,88 @@
+﻿@model Car
+
+<form method="post" asp-action="DeletePost">
+	<input asp-for="Id"	hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-3">
+			<h2 class="text-primary">Delete Car</h2>
+			<hr />
+		</div>
+	
+		
+		<div asp-validation-summary="All"></div>
+		
+		@*<div class="mb-3">
+			<label asp-for="Id" ></label>
+			<input asp-for="Id" class="form-control"  />
+			<span asp-validation-for="Id" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Name"></label>
+			<input asp-for="Name" disabled class="form-control" />
+
+		<div class="mb-3 col-6">
+			<label asp-for="Number"></label>
+			<input asp-for="Number" class="form-control" />
+			
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="NumOfSeats"></label>
+			<input asp-for="NumOfSeats" class="form-control" />
+			<span asp-validation-for="NumOfSeats" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="Mileage"></label>
+			<input asp-for="Mileage" class="form-control" />
+			<span asp-validation-for="Mileage" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="CarImage"></label>
+			<input type="file" id="Uploadbox" name="file" class="form-control" />
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="KMUsed"></label>
+			<input asp-for="KMUsed" class="form-control" />
+			<span asp-validation-for="KMUsed" class="text-danger"></span>
+		</div>
+		
+		<div class="mb-3 col-6">
+			<label asp-for="Price"></label>
+			<input asp-for="Price" class="form-control" />
+			<span asp-validation-for="Price" class="text-danger"></span>
+		</div>
+
+		</div>
+		<div class="mb-3">
+			<label asp-for="Description"></label>
+			<textarea asp-for="Description" disabled rows="3" class="form-control" /></textarea>	
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="CarModalId"></label>
+			<select asp-for="CarModalId"  asp-items="ViewBag.CarModalList" class="form-select">
+				<option disabled selected>--Select CarModal--</option>
+			</select>
+			
+		</div>
+*@
+		<lable>Are you sure you want to delete this Name @ViewBag.Car ?</lable>
+		
+		<br />
+		<br />
+
+		<button type="submit" class="btn btn-primary" style="width:150px">Delete</button>
+		<a  asp-area="Admin" asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Back to List
+		</a>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

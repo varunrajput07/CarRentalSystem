@@ -1,0 +1,114 @@
+﻿@model CarBooking
+
+<div class="hero inner-page" style="background-image: url('/images/hero_1_a.jpg');">
+	</div>
+<form method="post" asp-action="CarBooking">
+	<div class="border p-3 mt-4">
+		<div class="row pb-3">
+			<h2 class="text-primary">CarBooking</h2>
+			<hr />
+		</div>
+		<input type="hidden" asp-for="PaymentAmount" />
+		<input type="hidden" asp-for="Amount" />
+		@*<div asp-validation-summary="All"></div>*@
+		      
+		<script>  
+       function comparedates() {  
+		   debugger;
+		   console.log("TestGD");
+           //define two variables and fetch the input from HTML form  
+		   var bookingStartDate = document.getElementById("BookingStartDate").value;  
+		   var bookingEndDate = document.getElementById("BookingEndDate").value;  
+
+		   if(bookingStartDate == null || bookingStartDate == ""
+		   || bookingEndDate == null || bookingEndDate == "")
+		   {
+			   return false;
+		   }
+        //define two date object variables to store the date values  
+         var date1 = new Date(bookingStartDate);  
+         var date2 = new Date(bookingEndDate);  
+		 if(date1 == undefined || date2 == undefined || date2 < date1) return false;
+		 var amount = document.getElementById("Amount").value;  
+
+        //calculate time difference  
+         var dateDifference = date2.getDate() - date1.getDate() ;
+  
+         //calculate days difference by dividing total milliseconds in a day  
+		 var paymentAmount = dateDifference * parseFloat(amount);  
+		 //var paymentAmount =dayDifference * amount;
+          document.getElementById("LblPaymentAmount").innerHTML = paymentAmount;
+		  return true;
+        }  
+      </script>    
+		
+		<div class="mb-3 col-6">
+			
+			<input asp-for=" FirstName" placeholder="FirstName" class="form-control" />
+			<span asp-validation-for=" FirstName" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			
+			<input asp-for="LastName" placeholder="LastName" class="form-control" />
+			<span asp-validation-for="LastName" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="BookingStartDate"></label> 
+			<input  asp-for=" BookingStartDate" placeholder="BookingStartDate" class="form-control" 
+			 onchange="return comparedates()" />
+			<span asp-validation-for=" BookingStartDate" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="BookingEndDate"></label>
+			<input  asp-for=" BookingEndDate" placeholder="BookingEndDate" class="form-control" 
+			onchange="return comparedates()" />
+			<span asp-validation-for=" BookingEndDate" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			
+			<input asp-for=" Email" placeholder="Email" class="form-control" />
+			<span asp-validation-for=" Email" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			
+			<input asp-for="ContactNo" placeholder="ContactNo" class="form-control" />
+			<span asp-validation-for=" ContactNo" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+		
+			<input asp-for="Address" placeholder="Address" class="form-control" />
+			<span asp-validation-for="Address" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<input type="hidden" asp-for="CarId" />
+		</div>
+		
+		<div class="mb-3 col-6" >
+			Payment Amount</label>
+			<label id="LblPaymentAmount">@Model.PaymentAmount</label>
+			
+		</div>
+
+			
+		<div class="mb-3">
+			<textarea asp-for="Note" placeholder="Note" rows="3" class="form-control"></textarea>
+			<span asp-validation-for="Note" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<input type="hidden" asp-for="BookingStatus" />
+			@*<label asp-for=" BookingStatus"></label>
+			<input asp-for=" BookingStatus" class="form-control" />
+			<span asp-validation-for=" BookingStatus" class="text-danger"></span>*@
+		</div>
+		<button type="submit" class="btn btn-primary" style="width:150px" >Rent Now</button>
+		@*<a  asp-area="Admin" asp-controller="CarBooking" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Back to List
+		</a>*@
+	</div>
+</form>
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	   
+}

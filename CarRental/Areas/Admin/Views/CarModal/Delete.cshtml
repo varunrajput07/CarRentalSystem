@@ -1,0 +1,42 @@
+﻿@model CarModal
+
+<form method="post" asp-action="DeletePost">
+	<input asp-for="Id"	hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-3">
+			<h2 class="text-primary">Delete CarModal</h2>
+			<hr />
+		</div>
+	
+		
+		@*<div asp-validation-summary="All"></div>*@
+		
+		@*<div class="mb-3">
+			<label asp-for="Id" ></label>
+			<input asp-for="Id" class="form-control"  />
+			<span asp-validation-for="Id" class="text-danger"></span>
+		</div>*@
+		@*<div class="mb-3">
+			<label asp-for="Name"></label>
+			<input asp-for="Name" disabled class="form-control" />
+			
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discription"></label>
+			<textarea asp-for="Discription" disabled rows="3" class="form-control"></textarea>	
+		</div>*@
+		<lable>Are you sure you want to delete this Car Modal Name @ViewBag.Car ?</lable>
+		<br/>
+		<br/>
+		<button type="submit" class="btn btn-primary" style="width:150px">Delete</button>
+		<a  asp-area="Admin" asp-controller="CarModal" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Back to List
+		</a>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

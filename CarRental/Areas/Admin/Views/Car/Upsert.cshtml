@@ -1,0 +1,135 @@
+﻿@model Car
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+	<input asp-for="Id" hidden />
+	<input asp-for="CarImage" hidden />
+
+	<div class="row">
+		<div class="col-10">
+			<div class="border p-3 mt-4 row">
+		<div class="col-12 pb-2">
+			<h2 class="text-primary">@(Model.Id!=0?"Update" : "Create")  Car </h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="Name"></label>
+			<input asp-for="Name" class="form-control" />
+			<span asp-validation-for="Name" class="text-danger"></span>
+		</div>
+		
+		<div class="mb-3 col-6">
+			<label asp-for="Number"></label>
+			<input asp-for="Number" class="form-control" />
+			<span asp-validation-for="Number" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="NumOfSeats"></label>
+			<input asp-for="NumOfSeats" class="form-control" />
+			<span asp-validation-for="NumOfSeats" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="Mileage"></label>
+			<input asp-for="Mileage" class="form-control" />
+			@*<span asp-validation-for="Mileage" class="text-danger"></span>*@
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="CarImage"></label>
+			<input type="file" id="Uploadbox" name="file" class="form-control" />
+			@*<span asp-validation-for="CarImage" class="text-danger"></span>*@
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="KMUsed"></label>
+			<input asp-for="KMUsed" class="form-control" />
+			<span asp-validation-for="KMUsed" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="NumOfAirbags"></label>
+			<input asp-for="NumOfAirbags" class="form-control" />
+			<span asp-validation-for="NumOfAirbags" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			
+			<label  asp-for="FuelType"></label>
+			<select  asp-for="FuelType" asp-items="@ViewBag.FuelType"class="form-control">
+				<option disabled selected>--Select Fuel--</option>
+				@*<option >Petrol</option>*@
+			</select>
+			<span asp-validation-for="FuelType" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="Price"></label>
+			<input asp-for="Price" class="form-control" />
+			<span asp-validation-for="Price" class="text-danger"></span>
+		</div>
+		
+		<div class="mb-3">
+			<label asp-for="Description"></label>
+			<textarea asp-for="Description" rows="3" class="form-control"></textarea>
+			<span asp-validation-for="Description" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="CarModalId"></label>
+			<select asp-for="CarModalId"  asp-items="ViewBag.CarModalList" class="form-select">
+				<option disabled selected>--Select CarModal--</option>
+			</select>
+			<span asp-validation-for="CarModalId" class="text-danger"></span>
+		</div>
+
+		
+		<div class="col-12">
+			@if (Model.Id != 0)
+			{
+				<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+			}
+			else
+			{
+				<button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+			}
+			<a asp-controller="Car" asp-action="Index" class="btn btn-secondary" style="width:150px">
+				Back to List
+			</a>
+		</div>
+
+	</div>
+		</div>
+		<div class="col-2 pt-4">
+			<img src="@Model.CarImage"
+			width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+		</div>
+	</div>
+
+</form>
+
+@section Scripts{
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+<script>
+  
+	  //tinymce.init({
+   //   selector: 'textarea',
+   //   plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+   //   toolbar_mode: 'floating',
+   //});
+  function ValidateInput(){
+		if(document.getElementById("Uploadbox").value==""){
+			Swal.fire({
+			  icon: 'error',
+			  title: 'Oops...',
+			  text: 'Please upload an Image!',
+			});
+			return false;
+		}
+		return true;
+	}
+	
+</script>
+}

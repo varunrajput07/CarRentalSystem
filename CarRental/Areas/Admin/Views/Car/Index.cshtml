@@ -1,0 +1,138 @@
+﻿
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Car List</h2>
+		</div>
+        <div class="col-6 text-end">
+            <a asp-controller="Car" asp-action="Upsert" class="btn btn-primary">
+               <i class="bi bi-plus-circle"></i> &nbsp; Create New Car
+			</a>
+		</div>
+	</div>
+    <br />
+
+    <form method="post" asp-action="Index">
+        
+    </form>
+
+<table id="tbldb" class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            
+            <th>
+                Name
+			</th>
+            <th>
+                Number
+			</th>
+            <th>
+                Num Of Seats
+			</th>
+             <th>
+                Mileage
+			</th>
+             @*<th>
+                CarImage
+			</th>*@
+             <th>
+                KMUsed
+			</th>
+            <th>
+                Num Of Airbags
+			</th>
+            <th>
+                Fuel Type
+			</th>
+            <th>
+                Price
+			</th>
+            <th>
+		        Description
+			</th>
+             <th>
+                CarModal
+			</th>
+		</tr>
+	</thead>
+     <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                
+                <td width="30%">
+                    @obj.Name
+				</td>
+                <td width="50%">
+                    @obj.Number
+				</td>
+                <td width="50%">
+                    @obj.NumOfSeats
+				</td>
+                <td width="50%">
+                    @obj.Mileage
+				</td>
+               @* <td width="50%">
+                    @obj.CarImage
+				</td>*@
+                <td width="50%">
+                    @obj.KMUsed
+				</td>
+                <td width="50%">
+                    @obj.NumOfAirbags
+				</td>
+                <td width="50%">
+                     @{var bookingStatsText ="";}
+                    @if(obj.FuelType == 1)
+                        {
+                           bookingStatsText="Petrol";
+                        }
+                        else if(obj.FuelType == 2)
+                        {
+                           bookingStatsText="Diesel";
+                        }
+                        else if(obj.FuelType == 3)
+                        {
+                           bookingStatsText="CNG";
+                        }
+                         else if(obj.FuelType == 4)
+                        {
+                           bookingStatsText="Battery";
+                        }
+                        @bookingStatsText
+				</td>
+                <td width="50%">
+                    @obj.Price
+				</td>
+		         <td width="20%">
+                    @obj.Description
+				</td>
+                <td width="50%">
+                    @obj.CarModal.Name
+				</td>
+
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Car" asp-action="Upsert" asp-route-id="@obj.Id"
+                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                        <a asp-controller="Car" asp-action="Delete" asp-route-id="@obj.Id"
+                        class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+					</div>
+				</td>
+			</tr>
+        }
+    </tbody>
+
+</table>
+</div>
+
+@section Scripts{
+@*
+   *@ <script src="~/js~/js/Car.js"></script>
+   <script>
+       $(document).ready(function(){
+
+           $("tbldb").data();
+       })
+   </script>
+}

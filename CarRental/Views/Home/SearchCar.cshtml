@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Car>
+@{
+
+    Layout = "_Layout";
+
+}
+<div class="hero inner-page" style="background-image: url('/images/hero_1_a.jpg');">
+
+    <div class="container">
+        <div class="row align-items-end ">
+            <div class="col-lg-5">
+
+                <div class="intro">
+                    <h1><strong>Listings</strong></h1>
+                    <div class="custom-breadcrumbs"><a asp-controller="Home" asp-action="Index">Home</a> <span class="mx-2">/</span> <strong>Listings</strong></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="site-section bg-light">
+    <div class="container">
+
+        <div class="row">
+            @foreach (var obj in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+
+                    <div class="listing d-block  align-items-stretch">
+                        <div class="listing-img h-50 mr-4">
+                            <img src="@obj.CarImage" alt="Image" class="img-fluid">
+                            @* <span class="caption">@obj.CarImage</span>*@
+                        </div>
+                        <div class="listing-contents h-100">
+                            <h3>@obj.Name</h3>
+                            <div class="rent-price">
+                                <strong>@obj.Price</strong><span class="mx-1">/</span>day
+                            </div>
+                            <div class="d-block d-md-flex mb-3 border-bottom pb-3">
+                                <div class="listing-feature pr-2">
+                                    <span class="number">Seats:</span>
+                                    <span class="caption">@obj.NumOfSeats</span>
+                                </div><br>
+                                <div class="listing-feature pr-2">
+                                    <span class="number">Airbags:</span>
+                                    <span class="caption">@obj.NumOfAirbags</span>
+                                </div><br>
+                                <div class="listing-feature pr-2">
+                                    <span class="number">KMUsed:</span>
+                                    <span class="caption">@obj.KMUsed</span>
+
+                                </div> <br>
+                                <div class="listing-feature pr-2">
+                                    <span class="number">CarModal:</span>
+                                    <span class="caption">@obj.CarModal.Name</span>
+
+                                </div>
+                                <div class="listing-feature pr-2">
+                                    <span class="number">Fuel:</span>
+                                    <span class="caption">
+                                        @{
+                                            var bookingStatsText = "";
+                                        }
+                                        @if (obj.FuelType == 1)
+                                        {
+                                            bookingStatsText = "Petrol";
+                                        }
+                                        else if (obj.FuelType == 2)
+                                        {
+                                            bookingStatsText = "Diesel";
+                                        }
+                                        else if (obj.FuelType == 3)
+                                        {
+                                            bookingStatsText = "CNG";
+                                        }
+                                        else if (obj.FuelType == 4)
+                                        {
+                                            bookingStatsText = "Battery";
+                                        }
+                                        @bookingStatsText
+                                    </span>
+
+                                </div><br>
+                                <div class="listing-feature pr-2">
+                                    <span class="number">Mileage:</span>
+                                    <span class="caption">@obj.Mileage</span>
+
+                                </div><br>
+                            </div>
+                            <div>
+                                <p>@obj.Description</p>
+                                <p><a href="CarBooking?Id=@obj.Id&stdate=@(ViewBag.stdate != null ? ((DateTime)ViewBag.stdate).ToString("MM/dd/yyyy"): "")&enddate=@(ViewBag.enddate != null ? ((DateTime)ViewBag.enddate).ToString("MM/dd/yyyy"): "")" class="btn btn-primary btn-sm">Rent Now</a></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

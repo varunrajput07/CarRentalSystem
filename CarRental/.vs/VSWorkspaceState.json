@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Areas",
+    "\\Areas\\Admin",
+    "\\Areas\\Admin\\Views",
+    "\\Areas\\Admin\\Views\\Car",
+    "\\bin\\Debug",
+    "\\Controllers",
+    "\\Views\\Home",
+    "\\wwwroot",
+    "\\wwwroot\\images"
+  ],
+  "SelectedNode": "\\appsettings.json",
+  "PreviewInSolutionExplorer": false
+}
